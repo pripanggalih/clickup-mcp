@@ -4,7 +4,9 @@
   "description": "Personal ClickUp MCP server for task context, documents, time tracking, and workspace administration.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": "dist/index.js",
+  "bin": {
+    "clickup-mcp": "dist/index.js"
+  },
   "files": [
     "dist",
     "README.md"
