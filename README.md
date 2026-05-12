@@ -1,34 +1,8 @@
-# ClickUp MCP for AI Assistants
+# ClickUp MCP by MW Pripanggalih
 
-Model Context Protocol (MCP) server enabling AI assistants to interact with ClickUp workspaces. Get complete task context with comments and images, search across projects, create and update tasks, collaborate through comments, and track time - all through natural language.
+Model Context Protocol (MCP) server for working with ClickUp workspaces from AI assistants. It supports rich task context, project search, task creation and updates, comments, documents, time tracking, and non-destructive workspace administration tools for Spaces, Folders, and Lists.
 
-## This MCP vs Official ClickUp MCP
-
-> See also: [Official ClickUp MCP Documentation](https://developer.clickup.com/docs/connect-an-ai-assistant-to-clickups-mcp-server)
-
-| Feature              | This MCP                                              | Official ClickUp MCP                        |
-|----------------------|-------------------------------------------------------|---------------------------------------------|
-| **Setup**            | Local npm/npx install                                 | Remote MCP (no install)                     |
-| **Authentication**   | API key only                                          | OAuth only                                  |
-| **Task Context**     | Complete with comments, status history, inline images | Requires mutiple tool calls for full contxt |
-| **Image Support**    | Inline images with smart size budgeting               | Not documented                              |
-| **Search**           | Fuzzy search on recent tasks (limited scope)          | Full ClickUp search database                |
-| **Documents**        | CRUD operations                                       | CRUD + document search                      |
-| **Time Tracking**    | View and create entries                               | Timers and entries                          |
-| **Chat Integration** | Not supported                                         | Supported                                   |
-| **Connected Apps**   | Not supported                                         | Connected Search                            |
-| **Best For**         | Coding tools, automation, context gathering           | Chat apps, task management                  |
-| **Support**          | Community (open source)                               | Official ClickUp                            |
-
-**Choose this MCP when:**
-- You need rich task context with inline images for AI coding tools
-- You need API key authentication for automation or CI/CD pipelines
-- You want the `read-minimal` mode optimized for development workflows
-
-**Choose Official MCP when:**
-- You need OAuth authentication for enterprise security compliance
-- You need Chat integration or Connected Search features
-- You want official support and no local installation
+This project is maintained as an independent ClickUp MCP distribution by MW Pripanggalih. It uses ClickUp API keys and is designed for local automation, coding assistants, and personal/team workflows that need direct ClickUp API access.
 
 ## What You Can Do
 
@@ -62,12 +36,18 @@ Turn natural language into powerful ClickUp actions:
 - *"Add a comment to the design task about the new wireframes"*
 
 **Document Management:**
-- *"Find documents about job posting in hauptsache.net space"*
+- *"Find documents about hiring in the Product space"*
 - *"Search for API documentation across all spaces"*
 - *"Read the API documentation in the development space"*
 - *"Create a new requirements document for the mobile app project"*
 - *"Update the meeting notes with today's decisions"*
 - *"What documents are in the product strategy space?"*
+
+**Workspace Administration (write mode):**
+- *"Create a new Space for the client migration project"*
+- *"Add a Folder called Roadmap to the Product space"*
+- *"Create a folderless List called Intake in the Operations space"*
+- *"Rename the Sprint Planning List to Delivery Planning"*
 
 ## Key Features
 
@@ -95,6 +75,12 @@ Turn natural language into powerful ClickUp actions:
 - Manage priorities, due dates, assignees, and tags
 - Handle time estimates and custom field values
 
+### 🧭 **Workspace Administration**
+- Create and update Spaces, Folders, and Lists using official ClickUp API v2 endpoints
+- Create either folderless Lists in Spaces or Lists inside Folders
+- Keep destructive delete operations out of the default tool set
+- Treat List `status` as List color only, not task workflow status
+
 ### 🔒 **Safety Features**
 - **Append-Only Descriptions**: Description fields are never overwritten - new content is safely appended with timestamps
 - **Normal Field Updates**: Status, priority, assignees, tags, and dates can be updated normally (easily revertible through ClickUp's history)
@@ -109,7 +95,7 @@ For all installation methods, you'll need:
 
 ### Option 1: MCPB Bundle (Recommended for Claude Desktop)
 
-Download the pre-built bundle from our [releases page](https://github.com/hauptsacheNet/clickup-mcp/releases). This method requires no Node.js installation.
+Download the pre-built bundle from the [releases page](https://github.com/pripanggalih/clickup-mcp/releases). This method requires no Node.js installation.
 
 You'll get a configuration screen where you are prompted to enter your API key and team ID.
 
@@ -127,7 +113,7 @@ Add the following to your MCP configuration file:
     "clickup": {
       "command": "npx",
       "args": [
-        "@hauptsache.net/clickup-mcp@latest"
+        "@pripanggalih/clickup-mcp@latest"
       ],
       "env": {
         "CLICKUP_API_KEY": "your_api_key",
@@ -155,7 +141,7 @@ claude mcp add --scope user clickup \
   --env CLICKUP_MCP_MODE=read-minimal \
   --env MAX_IMAGES=16 \
   --env MAX_RESPONSE_SIZE_MB=4 \
-  -- npx -y @hauptsache.net/clickup-mcp
+  -- npx -y @pripanggalih/clickup-mcp
 ```
 
 > Claude Code can handle a lot of images, thus the recommended increased limits.
@@ -167,7 +153,7 @@ Add these lines to your `~/.codex/config.toml` file:
 ```toml
 [mcp_servers.clickup]
 command = "npx"
-args = ["-y", "@hauptsache.net/clickup-mcp@latest"]
+args = ["-y", "@pripanggalih/clickup-mcp@latest"]
 env = { "CLICKUP_API_KEY" = "YOUR_KEY", "CLICKUP_TEAM_ID" = "YOUR_ID", "CLICKUP_MCP_MODE" = "read-minimal" }
 ```
 
@@ -193,6 +179,12 @@ The ClickUp MCP supports three operational modes to balance functionality, secur
 | `searchSpaces`         |      ❌       |  ✅   |   ✅   | Browse workspace structure, project organization, and documents                         |
 | `getListInfo`          |      ❌       |  ✅   |   ✅   | Get list details and available statuses for task creation                               |
 | `updateListInfo`       |      ❌       |  ❌   |   ✅   | **SAFE APPEND-ONLY** updates to list descriptions (preserves existing content)          |
+| `createSpace`          |      ❌       |  ❌   |   ✅   | Create a new Space in the configured Workspace                                         |
+| `updateSpace`          |      ❌       |  ❌   |   ✅   | Update Space name, color, privacy, assignee, admin, and feature settings               |
+| `createFolder`         |      ❌       |  ❌   |   ✅   | Create a Folder inside a Space                                                         |
+| `updateFolder`         |      ❌       |  ❌   |   ✅   | Rename an existing Folder                                                              |
+| `createList`           |      ❌       |  ❌   |   ✅   | Create a folderless List in a Space or a List inside a Folder                          |
+| `updateList`           |      ❌       |  ❌   |   ✅   | Update List fields; `status_color` maps to ClickUp's List color, not task status       |
 | `getTimeEntries`       |      ❌       |  ✅   |   ✅   | View time entries and analyze time spent across projects                                |
 | `createTimeEntry`      |      ❌       |  ❌   |   ✅   | Log time entries for task tracking                                                      |
 | `readDocument`         |      ❌       |  ✅   |   ✅   | Get document details, page structure, and content with navigation                       |
@@ -209,7 +201,7 @@ Add the mode to your MCP configuration:
   "mcpServers": {
     "clickup": {
       "command": "npx",
-      "args": ["-y", "@hauptsache.net/clickup-mcp@latest"],
+      "args": ["-y", "@pripanggalih/clickup-mcp@latest"],
       "env": {
         "CLICKUP_API_KEY": "your_api_key",
         "CLICKUP_TEAM_ID": "your_team_id",

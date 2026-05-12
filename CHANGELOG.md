@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Added comparison table in README showing differences between this MCP and the official ClickUp MCP
+- Added write-mode admin tools for non-destructive Space, Folder, and List management using official ClickUp API v2 endpoints: `createSpace`, `updateSpace`, `createFolder`, `updateFolder`, `createList`, and `updateList`
+
+### Changed
+- Rebranded package metadata, manifest, repository links, license owner, and README for MW Pripanggalih's independent ClickUp MCP distribution
 
 ### Fixed
 - Fixed image MIME type detection by inspecting binary magic bytes instead of trusting HTTP headers or fallback values

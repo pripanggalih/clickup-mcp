@@ -1,18 +1,18 @@
 {
   "manifest_version": "0.2",
-  "name": "@hauptsache.net/clickup-mcp",
+  "name": "@pripanggalih/clickup-mcp",
   "display_name": "ClickUp",
   "icon": "icon-72x72.png",
   "version": "1.6.1",
-  "description": "Search, create, and retrieve tasks and documents, add comments, and track time through natural language commands.",
+  "description": "Personal ClickUp MCP server for task context, documents, time tracking, and workspace administration.",
   "author": {
-    "name": "Marco Pfeiffer",
-    "email": "marco@hauptsache.net",
-    "url": "https://github.com/Nemo64"
+    "name": "MW Pripanggalih",
+    "email": "galihcrew07@gmail.com",
+    "url": "https://github.com/pripanggalih"
   },
-  "homepage": "https://www.hauptsache.net",
-  "documentation": "https://github.com/hauptsacheNet/clickup-mcp/blob/main/README.md",
-  "support": "https://github.com/hauptsacheNet/clickup-mcp/issues",
+  "homepage": "https://github.com/pripanggalih/clickup-mcp",
+  "documentation": "https://github.com/pripanggalih/clickup-mcp/blob/main/README.md",
+  "support": "https://github.com/pripanggalih/clickup-mcp/issues",
   "server": {
     "type": "node",
     "entry_point": "dist/index.js",
@@ -59,6 +59,30 @@
     {
       "name": "updateListInfo",
       "description": "Append documentation or context to a list's description (append-only for safety) with markdown support and timestamp tracking."
+    },
+    {
+      "name": "createSpace",
+      "description": "Create a new Space in the configured ClickUp Workspace using the official API v2."
+    },
+    {
+      "name": "updateSpace",
+      "description": "Update an existing Space's name, color, privacy, multiple-assignee, admin management, or feature settings using the official API v2."
+    },
+    {
+      "name": "createFolder",
+      "description": "Create a new Folder inside a ClickUp Space using the official API v2."
+    },
+    {
+      "name": "updateFolder",
+      "description": "Rename an existing ClickUp Folder using the official API v2."
+    },
+    {
+      "name": "createList",
+      "description": "Create a folderless List in a Space or a List inside a Folder using the official API v2. The status_color parameter maps to ClickUp's List color."
+    },
+    {
+      "name": "updateList",
+      "description": "Update an existing List using the official API v2. The status_color parameter maps to ClickUp's List color, not task workflow status."
     },
     {
       "name": "getTimeEntries",
@@ -120,6 +144,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hauptsacheNet/clickup-mcp.git"
+    "url": "git+https://github.com/pripanggalih/clickup-mcp.git"
   }
 }

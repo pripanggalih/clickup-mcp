@@ -1,7 +1,7 @@
 {
-  "name": "@hauptsache.net/clickup-mcp",
+  "name": "@pripanggalih/clickup-mcp",
   "version": "1.6.1",
-  "description": "Search, create, and retrieve tasks, add comments, and track time through natural language commands.",
+  "description": "Personal ClickUp MCP server for task context, documents, time tracking, and workspace administration.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": "dist/index.js",
@@ -35,8 +35,8 @@
     "automation"
   ],
   "author": {
-    "name": "Marco Pfeiffer",
-    "email": "marco@hauptsache.net"
+    "name": "MW Pripanggalih",
+    "email": "galihcrew07@gmail.com"
   },
   "license": "MIT",
   "dependencies": {
@@ -63,10 +63,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hauptsacheNet/clickup-mcp.git"
+    "url": "git+https://github.com/pripanggalih/clickup-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/hauptsacheNet/clickup-mcp/issues"
+    "url": "https://github.com/pripanggalih/clickup-mcp/issues"
   },
-  "homepage": "https://github.com/hauptsacheNet/clickup-mcp#readme"
+  "homepage": "https://github.com/pripanggalih/clickup-mcp#readme"
 }

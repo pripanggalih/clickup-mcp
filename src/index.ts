@@ -13,6 +13,7 @@ import { registerSpaceTools } from "./tools/space-tools";
 import { registerListToolsRead, registerListToolsWrite } from "./tools/list-tools";
 import { registerTimeToolsRead, registerTimeToolsWrite } from "./tools/time-tools";
 import { registerDocumentToolsRead, registerDocumentToolsWrite } from "./tools/doc-tools";
+import { registerAdminToolsWrite } from "./tools/admin-tools";
 import { registerSpaceResources } from "./resources/space-resources";
 
 // Create server variable that will be initialized later
@@ -125,6 +126,7 @@ Use the ClickUp search tools to find tasks assigned to me, and get detailed info
     registerTimeToolsWrite(server);
     registerDocumentToolsRead(server);
     registerDocumentToolsWrite(server);
+    registerAdminToolsWrite(server);
   }
 
 
